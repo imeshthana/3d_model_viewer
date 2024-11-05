@@ -1,11 +1,11 @@
 import React , { Suspense, useRef }from 'react';
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'; 
+import { View, StyleSheet, Text } from 'react-native'; 
 import { Canvas } from "@react-three/fiber/native";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei/native";
-import { Asset } from 'expo-asset';
+// import bmwModel from './assets/bmw.glb';
 
 export default function App() {
-  const imgUrl = require('./assets/bmw.glb');
+  const imgUrl = 'https://firebasestorage.googleapis.com/v0/b/dev-foodworld3d.appspot.com/o/models%2FME5mEwCKz0en4CCGavx0DGrufCY2%2FBurger%202.glb?alt=media&token=eb09916d-47ee-4655-8b48-97e7bfc08304'
 
   function Model() {
     const { scene } = useGLTF(imgUrl);
@@ -24,7 +24,7 @@ export default function App() {
             style={{ width: "100%", height: "93%" }}
             >
             <color attach="background" args={["#ffffff"]} />
-            <Suspense fallback={<Text>Loading model...</Text>}>
+            <Suspense fallback={<Text>3D Model Loading...</Text>}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <Model key={imgUrl} />
