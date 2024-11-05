@@ -1,10 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React , { Suspense, useRef }from 'react';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'; 
+import { Canvas } from "@react-three/fiber/native";
+import { Environment, OrbitControls, useGLTF } from "@react-three/drei/native";
+import { Asset } from 'expo-asset';
 
 export default function App() {
-  const imgUrl = "https://firebasestorage.googleapis.com/v0/b/dev-foodworld3d.appspot.com/o/models%2FrlIXPV00gGda4HLAWYxdj4kKK2O2%2FBurger%202.glb?alt=media&token=d02f444e-7fce-44ca-81ed-e99702d26295"
-  
-  function Model(imgUrl) {
+  const imgUrl = require('./assets/bmw.glb');
+
+  function Model() {
     const { scene } = useGLTF(imgUrl);
     return <primitive object={scene} scale={[2, 2, 2]} />;
   }
@@ -21,7 +24,7 @@ export default function App() {
             style={{ width: "100%", height: "93%" }}
             >
             <color attach="background" args={["#ffffff"]} />
-            <Suspense fallback={null}>
+            <Suspense fallback={<Text>Loading model...</Text>}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <Model key={imgUrl} />
@@ -42,6 +45,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#2196F3', 
+    width: '100%',
     paddingTop: 40,
     paddingBottom: 16,
     alignItems: 'center', 
